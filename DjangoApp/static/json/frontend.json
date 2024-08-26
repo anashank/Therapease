@@ -1,0 +1,388 @@
+{
+    "quizzes": [
+        {
+            "title": "Looking for a Therapist?",
+            "icon": "/static/images/icon-eyes.png",
+            "questions": [
+                {
+                    "question": "Hey there, I'm Buddy the Bear! Let's find your ideal therapist. Do you prefer a therapist who incorporates creative activities like art or music in their sessions? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Are you interested in exploring deeper, potentially challenging topics during therapy? Just a simple Yes or No will do!",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "I'm all about comfort! Do you feel more at ease with a therapist who has a very relaxed and informal approach? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Therapy can be an adventure in self-discovery! Do you prefer a therapist who focuses on practical, everyday strategies? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Communication is key! Do you find it easier to express yourself in writing? Would a therapist who offers email or text-based sessions suit you? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "It's important to face challenges. Do you think you would benefit from a therapist who gently pushes you to step out of your comfort zone? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Are group therapy sessions something you’d be interested in trying? A group setting can offer a different perspective. Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Your comfort zone is important. Would you prefer a therapist who primarily focuses on talk therapy, rather than exploring past experiences? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Do you believe that a therapist with a specialization (like anxiety, relationships, etc.) would be more beneficial for you? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Finally, is it important for you that your therapist shares or understands specific aspects of your background or identity (such as cultural, religious, LGBTQ+)? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                }
+            ]
+        },
+        {
+            "title": "Want to be a Therapist?",
+            "icon": "/static/images/icon-owl.svg",
+            "questions": [
+                {
+                    "question": "Hello! Ollie the Owl here. Do you have a knack for using creative techniques like art or music in your therapy sessions? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Are you comfortable diving into deep, emotional conversations in your sessions? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Do you thrive in a laid-back, informal session style? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Are you a fan of offering practical, everyday strategies to your clients? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Do you find writing therapeutic and useful in your practice? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Do you believe that pushing clients slightly out of their comfort zone can be beneficial? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Would you be interested in leading group therapy sessions? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Do you prefer focusing mainly on talk therapy rather than exploring past traumas? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Do you think having a specialization in a particular area of mental health would enhance your therapy practice? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                },
+                {
+                    "question": "Is it important to you that your clients share or understand certain aspects of your background or identity? Yes or No?",
+                    "options": [
+                        "Yes",
+                        "No"
+                    ],
+                    "answer": "Yes"
+                }
+            ]
+        },
+        {
+            "title": "Find an Article!",
+            "icon": "/static/images/icon-js.svg",
+            "questions": [
+                {
+                    "question": "Which syntax is correct to output 'Hello World' in an alert box?",
+                    "options": [
+                        "alertBox('Hello World');",
+                        "msg('Hello World');",
+                        "alert('Hello World');",
+                        "msgBox('Hello World');"
+                    ],
+                    "answer": "alert('Hello World');"
+                },
+                {
+                    "question": "How do you call a function named 'myFunction'?",
+                    "options": [
+                        "call function myFunction()",
+                        "call myFunction()",
+                        "myFunction()",
+                        "execute myFunction()"
+                    ],
+                    "answer": "myFunction()"
+                },
+                {
+                    "question": "How to write an IF statement in JavaScript?",
+                    "options": [
+                        "if i = 5 then",
+                        "if (i == 5)",
+                        "if i == 5",
+                        "if i = 5"
+                    ],
+                    "answer": "if (i == 5)"
+                },
+                {
+                    "question": "How to write an IF statement for executing some code if 'i' is NOT equal to 5?",
+                    "options": [
+                        "if (i <> 5)",
+                        "if i =! 5 then",
+                        "if (i != 5)",
+                        "if i not = 5"
+                    ],
+                    "answer": "if (i != 5)"
+                },
+                  {
+                    "question": "How does a FOR loop start?",
+                    "options": [
+                        "for (i = 0; i <= 5)",
+                        "for i = 1 to 5",
+                        "for (i <= 5; i++)",
+                        "for (i = 0; i <= 5; i++)"
+                    ],
+                    "answer": "for (i = 0; i <= 5; i++)"
+                },
+                {
+                    "question": "How can you add a comment in a JavaScript?",
+                    "options": [
+                      "'This is a comment",
+                      "//This is a comment",
+                      "<!--This is a comment-->",
+                      "/* This is a comment */"
+                    ],
+                    "answer": "//This is a comment"
+                },
+                {
+                    "question": "What is the correct way to write a JavaScript array?",
+                    "options": [
+                        "var colors = (1:'red', 2:'green', 3:'blue')",
+                        "var colors = ['red', 'green', 'blue']",
+                        "var colors = 'red', 'green', 'blue'",
+                        "var colors = 1 = ('red'), 2 = ('green'), 3 = ('blue')"
+                    ],
+                    "answer": "var colors = ['red', 'green', 'blue']"
+                },
+                {
+                    "question": "How do you find the number with the highest value of x and y?",
+                    "options": [
+                        "Math.ceil(x, y)",
+                        "top(x, y)",
+                        "Math.max(x, y)",
+                        "Math.highest(x, y)"
+                    ],
+                    "answer": "Math.max(x, y)"
+                },
+                {
+                    "question": "Which operator is used to assign a value to a variable?",
+                    "options": [
+                        "-",
+                        "*",
+                        "=",
+                        "x"
+                    ],
+                    "answer": "="
+                },
+                {
+                    "question": "What is the correct way to write a JavaScript object?",
+                    "options": [
+                        "var person = {firstName: 'John', lastName: 'Doe'};",
+                        "var person = {firstName = 'John', lastName = 'Doe'};",
+                        "var person = (firstName: 'John', lastName: 'Doe');",
+                        "var person = (firstName = 'John', lastName = 'Doe');"
+                    ],
+                    "answer": "var person = {firstName: 'John', lastName: 'Doe'};"
+                }
+            ]
+        },
+        {
+            "title": "Article too Long? Use this Tool!",
+            "icon": "/static/images/icon-accessibility.svg",
+            "questions": [
+                {
+                    "question": "What does 'WCAG' stand for?",
+                    "options": [
+                        "Web Content Accessibility Guidelines",
+                        "Web Compliance Accessibility Guide",
+                        "Web Content Accessibility Goals",
+                        "Website Compliance and Accessibility Guidelines"
+                    ],
+                    "answer": "Web Content Accessibility Guidelines"
+                },
+                {
+                    "question": "Which element is used to provide alternative text for images for screen reader users?",
+                    "options": [
+                        "<alt>",
+                        "<figcaption>",
+                        "<description>",
+                        "<img alt='description'>"
+                    ],
+                    "answer": "<img alt='description'>"
+                },
+                {
+                    "question": "What does ARIA stand for in web development?",
+                    "options": [
+                        "Accessible Rich Internet Applications",
+                        "Advanced Responsive Internet Assistance",
+                        "Accessible Responsive Internet Applications",
+                        "Automated Responsive Internet Actions"
+                    ],
+                    "answer": "Accessible Rich Internet Applications"
+                },
+                {
+                    "question": "Which of the following is not a principle of the WCAG?",
+                    "options": [
+                        "Perceivable",
+                        "Dependable",
+                        "Operable",
+                        "Understandable"
+                    ],
+                    "answer": "Dependable"
+                },
+                {
+                    "question": "Which of these color contrast ratios defines the minimum WCAG 2.1 Level AA requirement for normal text?",
+                    "options": [
+                        "3:1",
+                        "4.5:1",
+                        "7:1",
+                        "2:1"
+                    ],
+                    "answer": "4.5:1"
+                },
+                {
+                    "question": "Which of the following elements is inherently focusable, meaning it can receive focus without a 'tabindex' attribute?",
+                    "options": [
+                        "<div>",
+                        "<span>",
+                        "<a href='...'>",
+                        "<p>"
+                    ],
+                    "answer": "<a href='...'>"
+                },
+                {
+                    "question": "What is the purpose of the 'lang' attribute in an HTML page?",
+                    "options": [
+                        "To specify the scripting language",
+                        "To define the character set",
+                        "To indicate the language of the page content",
+                        "To declare a language pack"
+                    ],
+                    "answer": "To indicate the language of the page content"
+                },
+                {
+                    "question": "Which guideline ensures that content is accessible by keyboard as well as by mouse?",
+                    "options": [
+                        "Keyboard Accessible",
+                        "Mouse Independence",
+                        "Device Independence",
+                        "Operable Controls"
+                    ],
+                    "answer": "Keyboard Accessible"
+                },
+                {
+                    "question": "What is the role of 'skip navigation' links in web accessibility?",
+                    "options": [
+                        "To skip over primary navigation to the main content",
+                        "To provide shortcuts to different sections of the website",
+                        "To help users skip unwanted sections like advertisements",
+                        "To bypass broken links in the navigation"
+                    ],
+                    "answer": "To skip over primary navigation to the main content"
+                },
+                {
+                    "question": "Which of these tools can help in checking the accessibility of a website?",
+                    "options": [
+                        "W3C Validator",
+                        "Google Lighthouse",
+                        "CSS Validator",
+                        "JavaScript Console"
+                    ],
+                    "answer": "Google Lighthouse"
+                }
+            ]
+        }
+    ]
+}
