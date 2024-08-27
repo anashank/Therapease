@@ -4,10 +4,28 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile,QuestionResponse,UserType
 import json
-import json
 from .forms import UserRegistrationForm
+import subprocess
+import io
+from .utils import compare_responses
+import sys
 
 
+def run_python_code(request):
+    # Run your Python script
+    # result = subprocess.run(['python3', 'score/utils.py'], capture_output=True, text=True)
+    # output = result.stdout
+    old_stdout = sys.stdout
+    new_stdout = io.StringIO()
+    sys.stdout = new_stdout
+    result = compare_responses(request)
+
+    sys.stdout = old_stdout
+
+    captured_output = new_stdout.getvalue()
+
+
+    return JsonResponse({'output':captured_output})
 
 @login_required
 def quiz(request):
@@ -20,8 +38,6 @@ def save_type(request):
         usertype = data.get('usertype') #Therapist or user
 
         usertype_short = 'User' if usertype == "Looking for a Therapist?" else 'Therapist'
-
-        print(usertype_short)
 
         user_profile = request.user.userprofile 
 

@@ -219,22 +219,47 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function validate(selected) {
-    let question = quizChosen.questions[qCount];
-    return (selected === selected)
-}
+// function validate(selected) {
+//     let question = quizChosen.questions[qCount];
+//     return (selected === selected)
+// }
 
 function showQuizComplete() {
     document.querySelector(".question-screen").classList.toggle("visible")
     document.querySelector(".quiz-complete").classList.toggle("visible")
-    document.querySelector(".final-score").textContent = score
-    document.querySelector(".complete-question-total").textContent = totalQuestions
+    //display output of compare_responses() function in utils.py
+    const loader = document.getElementById('loader');
+
+    // Show the loading circle
+    loader.style.display = 'block';
+
+    const fetchDelay = 5000;
+
+    setTimeout(() => {
+        fetch('/run-python/')
+            .then(response => response.json())
+            .then(data => {
+                loader.style.display = 'none';
+                // Display the output in the console
+                // Optionally, display the output in the HTML
+                document.getElementById('output').innerText = data.output;
+            })
+            .catch(error => {
+                loader.style.display = 'none';
+                console.error('Error:', error)}
+                );
+    }, fetchDelay);
+
+
+    // document.querySelector(".final-score").textContent = score
+    // document.querySelector(".complete-question-total").textContent = totalQuestions
 }
 
 document.querySelector(".restart").addEventListener("click", function () {
     document.querySelector(".quiz-complete").classList.toggle("visible")
     document.querySelector(".start-menu").classList.toggle("visible")
     document.querySelector(".curr-subject").style.visibility = "hidden"
+    document.getElementById('output').innerText = "";
     qCount = -1
     score = 0
 })
