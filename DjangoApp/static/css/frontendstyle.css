@@ -33,14 +33,17 @@ html {
 
 body {
     font-family: 'Rubik', sans-serif;
-    background-color: var(--bg-col);
-    background-image: var(--bg);
-    background-repeat: no-repeat;
-    background-size: cover;
+    /* Updated background with gradient and subtle pattern */
+    background: linear-gradient(120deg, #e0f7fa, #f1f8e9, #fff1e9), url('../images/subtle-floral.png');
+    background-repeat: no-repeat, repeat;
+    background-size: cover, auto;
     color: var(--text-color);
     height: 100vh;
     display: flex;
     justify-content: center;
+    align-items: center;
+    /* Add some padding to avoid content touching the edges */
+    padding: 20px;
 }
 
 *,
@@ -61,6 +64,27 @@ svg {
 
 button {
     font: inherit;
+}
+
+/* Adding a soft shadow to make the content stand out */
+.card {
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px;
+}
+
+/* Adjusting text styles */
+h1, h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+p {
+    color: var(--text-color-p);
+    text-align: center;
 }
 
 /*************** End of css reset ****************/
