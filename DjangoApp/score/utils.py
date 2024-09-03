@@ -22,11 +22,10 @@ def compare_responses(request):
     for i,r in enumerate(therapist_response):
         question_map_dict[r.question] = user_response[i].question
     
-    # profile = request.user.userprofile 
-    # current_user_type_obj = UserType.objects.filter(user_profile=profile)
+    profile = UserProfile.objects.get(user=request.user)
+    current_user_type_obj = UserType.objects.filter(user_profile=profile).first()
 
-
-    # if current_user_type_obj.user_type == 'User':
+    # if  == 'User':
     for user_profile in set(user_profiles):
         for therapist_profile in set(therapist_profiles):
 
@@ -49,38 +48,6 @@ def compare_responses(request):
             else:
                 match_percentage = 0
 
+            print("current logged in user",request.user.username,current_user_type_obj.user_type)
             print(user_profile.user.username,therapist_profile.user.first_name)
             print(f"Therapy Specialist and App User match score: {matches}/{total_questions} ({match_percentage:.2f}%)")
-    # else:
-       
-
-    #         user_responses = QuestionResponse.objects.filter(user_profile=user_profiles)
-    #         therapist_responses = QuestionResponse.objects.filter(user_profile=profile)
-
-    #         therapist_responses_dict = {response.question: response.response for response in therapist_responses}
-    #         user_responses_dict = {response.question: response.response for response in user_responses}
-
-    #         matches = 0
-    #         total_questions = len(therapist_responses_dict)
-
-    #         for question, therapist_answer in therapist_responses_dict.items():
-    #             user_answer = user_responses_dict.get(question_map_dict[question])
-    #             if user_answer is not None and therapist_answer == user_answer:
-    #                 matches += 1
-            
-    #         if total_questions > 0:
-    #             match_percentage = (matches / total_questions) * 100
-    #         else:
-    #             match_percentage = 0
-
-    #         print(user_profile.user.first_name,profile.user.first_name)
-    #         print(f"Therapy Specialist and User match score: {matches}/{total_questions} ({match_percentage:.2f}%)")
-
-# def get_user_info(request):
-#     if request.user.is_authenticated:
-#         user = request.user
-#         # Extract user information as needed
-#         return user.username,
-
-# if __name__ == "__main__":
-#     compare_responses()

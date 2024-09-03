@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Articles</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            text-align: center;
+            width: 80%;
+            max-width: 800px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p.description {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 40px;
+        }
+        form {
+            margin-bottom: 30px;
+        }
+        input[type="text"] {
+            width: 70%;
+            padding: 10px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            background-color: #5c6bc0;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3949ab;
+        }
+        .results {
+            margin-top: 20px;
+        }
+        .result-item {
+            text-align: left;
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+        .thumbnail {
+            width: 150px;
+            height: 100px;
+            margin-right: 20px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .result-item h3 {
+            font-size: 1.5rem;
+            margin: 0;
+            color: #5c6bc0;
+        }
+        .result-item p {
+            font-size: 1rem;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search for Articles and Blogs</h1>
+        <p class="description">Use this search function to explore articles, blogs, and more to satisfy your curiosity.</p>
+        <form method="get" action="{% url 'search' %}">
+            <input type="text" name="q" placeholder="Enter a keyword..." value="{{ query }}">
+            <button type="submit">Search</button>
+        </form>
+
+        <div class="results">
+            {% for article in results %}
+            <div class="result-item">
+                <div class="thumbnail">
+                    <img src="{{ article.thumbnail_url }}" alt="Thumbnail">
+                </div>
+                <div>
+                    <h3><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></h3>
+                    <p>{{ article.content }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>No results found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

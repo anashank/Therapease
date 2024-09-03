@@ -66,12 +66,15 @@
             <!-- <img src="{% static 'images/icon-css.svg' %}" alt="css icon"> -->
           </div>Want to be a Therapist? 🧑‍⚕️
         </button>
-        <button id="JavaScript" class="quiz-type btn btn-info btn-lg">
-          <div class="button-icon-container">
-            <!-- <img src="{% static 'images/icon-js.svg' %}" alt="javascript icon"> -->
-          </div>Find an Article/Blog!
-        </button>
-        <button id="Accessibility" class="quiz-type btn btn-warning btn-lg">
+        <a href="{% url 'search' %}">
+          <button id="Article" class="quiz-type btn btn-info btn-lg">
+            <div class="button-icon-container">
+              <!-- <img src="{% static 'images/icon-js.svg' %}" alt="javascript icon"> -->
+            </div>
+            Find an Article/Blog!
+          </button>
+        </a>
+        <button id="LLM" class="quiz-type btn btn-warning btn-lg">
           <div class=" button-icon-container">
             <!-- <img src="{% static 'images/icon-accessibility.svg' %}" alt="Accessibility icon"> -->
           </div>Article too Long? Use this Tool!
@@ -144,6 +147,7 @@
         <div id="loader" class="loader"></div>
         <pre id="output"></pre>
         <button class="restart">Retake the Questionnaire?</button>
+        <a href="{% url 'frontend' %}" class="btn btn-primary">Go to Main View</a>
       </div>
 
     </article>

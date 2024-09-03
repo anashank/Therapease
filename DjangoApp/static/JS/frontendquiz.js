@@ -48,12 +48,12 @@ function setSubjectBars(type) {
         else if (type == "Want to be a Therapist?") {
             bar.firstElementChild.firstElementChild.src = "/static/images/icon-owl.svg"
         }
-        else if (type == "Find an Article!") {
-            bar.firstElementChild.firstElementChild.src = "/static/images/icon-js.svg"
-        }
-        else {
-            bar.firstElementChild.firstElementChild.src = "/static/images/icon-accessibility.svg"
-        }
+        // else if (type == "Find an Article!") {
+        //     bar.firstElementChild.firstElementChild.src = "/static/images/icon-js.svg"
+        // }
+        // else {
+        //     bar.firstElementChild.firstElementChild.src = "/static/images/icon-accessibility.svg"
+        // }
         bar.style.visibility = "visible"
     }
 }
