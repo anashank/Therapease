@@ -9,10 +9,12 @@ from score.models import UserProfile, QuestionResponse, UserType
 
 def compare_responses(request):
 
-
     therapist_profiles = [t.user_profile for t in UserType.objects.filter(user_type='Therapist')]
     user_profiles = [u.user_profile for u in UserType.objects.filter(user_type='User')]
 
+    if len(therapist_profiles) == 0 or len(user_profiles) == 0:
+        print("Not enough users to compare")
+        return
     
     question_map_dict = {}
 
@@ -22,8 +24,11 @@ def compare_responses(request):
     for i,r in enumerate(therapist_response):
         question_map_dict[r.question] = user_response[i].question
     
+    
     profile = UserProfile.objects.get(user=request.user)
     current_user_type_obj = UserType.objects.filter(user_profile=profile).first()
+
+    score_dict = {}
 
     # if  == 'User':
     for user_profile in set(user_profiles):
@@ -48,6 +53,28 @@ def compare_responses(request):
             else:
                 match_percentage = 0
 
-            print("current logged in user",request.user.username,current_user_type_obj.user_type)
-            print(user_profile.user.username,therapist_profile.user.first_name)
-            print(f"Therapy Specialist and App User match score: {matches}/{total_questions} ({match_percentage:.2f}%)")
+            score_dict[(user_profile, therapist_profile)] = match_percentage
+        
+    if current_user_type_obj.user_type == "User":
+        max_score = -float('inf')
+        for k,v in score_dict.items():
+            if k[0].user.username == request.user.username:
+                print(k[0].user.username,k[1].user.username,v)
+                if v > max_score:
+                    max_score = v
+                    therapist_profile_match = k[1]
+        print("Best match is:",therapist_profile_match.user.username)
+    else:
+        max_score = -float('inf')
+        for k,v in score_dict.items():
+            if k[1].user.username == request.user.username:
+                print(k[1].user.username,k[0].user.username,v)
+                if v > max_score:
+                    max_score = v
+                    user_profile_match = k[0]
+        print("Best match is:",user_profile_match.user.username)
+
+
+            # print("current logged in user",request.user.username,current_user_type_obj.user_type)
+            # print(user_profile.user.username,therapist_profile.user.first_name)
+            # print(f"Therapy Specialist and App User match score: {matches}/{total_questions} ({match_percentage:.2f}%)")
