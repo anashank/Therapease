@@ -29,7 +29,10 @@ def run_python_code(request):
 
 @login_required
 def quiz(request):
-	return render(request, 'frontend.html')
+    response = render(request, 'frontend.html')
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    return response
 
 @login_required
 def save_type(request):
