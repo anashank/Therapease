@@ -132,40 +132,78 @@ for (let i = 0; i < options.length; i++) {
 }
 
 submit.addEventListener("click", function () {
-    let selectedBox, answerText;
+    let selectedBox = document.querySelector(".selected");
+    const selectPrompt = document.querySelector(".select-prompt");
 
-    if (submit.textContent == "Next Question") {
-        for (let i = 0; i < options.length; i++){
-            if(options[i].classList.contains('selected')){
-                console.log(options[i].firstChild.innerText);
-                answer = options[i].firstChild.innerText
-                questionText = document.querySelector(".question").textContent
-                saveUserResponse(questionText, answer);
-            } 
+    if (submit.textContent === "Next Question") {
+        if (selectedBox) {
+            const answer = selectedBox.firstChild.innerText;
+            const questionText = document.querySelector(".question").textContent;
+            saveUserResponse(questionText, answer);
+            makeQuestions(quizChosen);
+            // Hide the select prompt when moving to the next question
+            selectPrompt.style.visibility = "hidden";
+        } else {
+            // Show the select prompt if no option is selected
+            selectPrompt.style.visibility = "visible";
         }
-        
-        makeQuestions(quizChosen);
         return;
     }
 
-    if (submit.textContent == "See Results") {
+    if (submit.textContent === "See Results") {
         showQuizComplete();
         return;
     }
-    if (selectedBox = document.querySelector(".selected")) {
 
+    if (selectedBox) {
+        // Remove selection letter from string
+        // answerText = selectedBox.textContent.slice(1, selectedBox.textContent.length);
 
-        // remove selection letter from string
-        //answerText = selectedBox.textContent.slice(1, selectedBox.textContent.length);
-
-        // once submit is pressed, is a selected box exists, remove it's selected classes
-        selectedBox.classList.remove("selected")
-        selectedBox.firstChild.classList.remove("selected-box")
-        //document.querySelector(".select-prompt").style.visibility = "visible"
+        // Once submit is pressed, if a selected box exists, remove its selected classes
+        selectedBox.classList.remove("selected");
+        selectedBox.firstChild.classList.remove("selected-box");
+        // Hide the select prompt
+        selectPrompt.style.visibility = "hidden";
         makeQuestions(quizChosen);
     }
-    return;
-})
+});
+
+
+// submit.addEventListener("click", function () {
+//     let selectedBox, answerText;
+
+//     if (submit.textContent == "Next Question") {
+//         for (let i = 0; i < options.length; i++){
+//             if(options[i].classList.contains('selected')){
+//                 console.log(options[i].firstChild.innerText);
+//                 answer = options[i].firstChild.innerText
+//                 questionText = document.querySelector(".question").textContent
+//                 saveUserResponse(questionText, answer);
+//             } 
+//         }
+        
+//         makeQuestions(quizChosen);
+//         return;
+//     }
+
+//     if (submit.textContent == "See Results") {
+//         showQuizComplete();
+//         return;
+//     }
+//     if (selectedBox = document.querySelector(".selected")) {
+
+
+//         // remove selection letter from string
+//         //answerText = selectedBox.textContent.slice(1, selectedBox.textContent.length);
+
+//         // once submit is pressed, is a selected box exists, remove it's selected classes
+//         selectedBox.classList.remove("selected")
+//         selectedBox.firstChild.classList.remove("selected-box")
+//         //document.querySelector(".select-prompt").style.visibility = "visible"
+//         makeQuestions(quizChosen);
+//     }
+//     return;
+// })
 
 
 function saveUserResponse(questionText, responseValue) {
@@ -242,7 +280,9 @@ function showQuizComplete() {
                 loader.style.display = 'none';
                 // Display the output in the console
                 // Optionally, display the output in the HTML
-                document.getElementById('output').innerText = data.output;
+                //document.getElementById('output').innerText = data.output;
+                const matchMessage = document.querySelector(".scored");
+                matchMessage.textContent = `You matched with... ${data.output}`;
             })
             .catch(error => {
                 loader.style.display = 'none';
@@ -259,7 +299,8 @@ document.querySelector(".restart").addEventListener("click", function () {
     document.querySelector(".quiz-complete").classList.toggle("visible")
     document.querySelector(".start-menu").classList.toggle("visible")
     document.querySelector(".curr-subject").style.visibility = "hidden"
-    document.getElementById('output').innerText = "";
+    //document.getElementById('output').innerText = "";
+    document.querySelector(".scored").textContent = `You matched with...`
     qCount = -1
     score = 0
 })

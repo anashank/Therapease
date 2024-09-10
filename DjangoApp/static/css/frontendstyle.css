@@ -4,13 +4,13 @@
     --js-bg: #EBF0FF;
     --accessibility-bg: #F6E7FF;
     --text-color: #050108;
-    --text-color-p: #626C7F;
+    --text-color-p: #030103;
     --lightblue: #61a4e8;
     --bg-col: rgb(169, 169, 169);
     --button-bg: white;
     --option-bg: #F4F6FA;
     --option-color: #626C7F;
-    --bg: url("../images/subtle-prism.svg");
+    --bg: url("../images/subtle-floral.png");
     --sun-src: url("../images/icon-sun-dark.svg");
     --moon-src: url("../images/icon-moon-dark.svg");
 }
@@ -33,17 +33,15 @@ html {
 
 body {
     font-family: 'Rubik', sans-serif;
-    /* Updated background with gradient and subtle pattern */
-    background: linear-gradient(120deg, #e0f7fa, #f1f8e9, #fff1e9), url('../images/subtle-floral.png');
-    background-repeat: no-repeat, repeat;
-    background-size: cover, auto;
+    background-color: var(--bg-col);
+    background-image: var(--bg);
+    background-size: cover; /* Width and height */
+    background-position: center;
+    background-repeat: no-repeat;
     color: var(--text-color);
     height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    /* Add some padding to avoid content touching the edges */
-    padding: 20px;
 }
 
 *,
@@ -64,27 +62,6 @@ svg {
 
 button {
     font: inherit;
-}
-
-/* Adding a soft shadow to make the content stand out */
-.card {
-    background-color: rgba(255, 255, 255, 0.8);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-    border-radius: 12px;
-    padding: 20px;
-    max-width: 600px;
-    margin: 20px;
-}
-
-/* Adjusting text styles */
-h1, h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-p {
-    color: var(--text-color-p);
-    text-align: center;
 }
 
 /*************** End of css reset ****************/
@@ -196,9 +173,9 @@ article {
 
 article h1 {
     color: var(--text-color);
-    font-weight: 300;
-    font-size: 2.5rem;
-    font-size: clamp(2.5rem, 1.972rem + 2.25vw, 4rem);
+    font-weight: 1000;
+    font-size: 4.5rem;
+    /*font-size: clamp(2.5rem, 1.972rem + 2.25vw, 4rem);*/
 }
 
 
@@ -208,9 +185,9 @@ h1 > span {
 
 article h2 {
     color: var(--text-color-p);
-    font-size: 1.125rem;
-    font-size: clamp(1.125rem, 0.905rem + 0.939vw, 1.75rem);
-    font-weight: 500;
+    font-size: 2.5rem;
+    /*font-size: clamp(1.125rem, 0.905rem + 0.939vw, 1.75rem);*/
+    font-weight: 800;
 }
 
 .question {

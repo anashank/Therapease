@@ -22,7 +22,12 @@ def compare_responses(request):
     user_response = QuestionResponse.objects.filter(user_profile=user_profiles[0])
 
     for i,r in enumerate(therapist_response):
-        question_map_dict[r.question] = user_response[i].question
+        if i < len(user_response):
+            question_map_dict[r.question] = user_response[i].question
+        else:
+            print(f"No corresponding user response for therapist question: {r.question}")
+            return
+
     
     
     profile = UserProfile.objects.get(user=request.user)
@@ -30,7 +35,6 @@ def compare_responses(request):
 
     score_dict = {}
 
-    # if  == 'User':
     for user_profile in set(user_profiles):
         for therapist_profile in set(therapist_profiles):
 
@@ -44,9 +48,13 @@ def compare_responses(request):
             total_questions = len(therapist_responses_dict)
 
             for question, therapist_answer in therapist_responses_dict.items():
-                user_answer = user_responses_dict.get(question_map_dict[question])
-                if user_answer is not None and therapist_answer == user_answer:
-                    matches += 1
+                if question_map_dict.get(question) is None:
+                    return
+                else:
+                    user_answer = user_responses_dict.get(question_map_dict[question])
+                    if user_answer is not None and therapist_answer == user_answer:
+                        matches += 1
+      
             
             if total_questions > 0:
                 match_percentage = (matches / total_questions) * 100
@@ -63,7 +71,8 @@ def compare_responses(request):
                 if v > max_score:
                     max_score = v
                     therapist_profile_match = k[1]
-        print("Best match is:",therapist_profile_match.user.username)
+        return therapist_profile_match
+        #print("Best match is:",therapist_profile_match.user.username)
     else:
         max_score = -float('inf')
         for k,v in score_dict.items():
@@ -72,7 +81,10 @@ def compare_responses(request):
                 if v > max_score:
                     max_score = v
                     user_profile_match = k[0]
-        print("Best match is:",user_profile_match.user.username)
+        return user_profile_match
+        #print("Best match is:",user_profile_match.user.username)
+    
+
 
 
             # print("current logged in user",request.user.username,current_user_type_obj.user_type)
