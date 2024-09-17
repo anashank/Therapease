@@ -10,7 +10,7 @@
     --button-bg: white;
     --option-bg: #F4F6FA;
     --option-color: #626C7F;
-    --bg: url("../images/daywallpaper.svg");
+    --bg: url("../images/daywallpaperv2.png");
     --sun-src: url("../images/icon-sun-dark.svg");
     --moon-src: url("../images/icon-moon-dark.svg");
 }
@@ -20,7 +20,7 @@
     --text-color-p: #ABC1E1;
     --bg-col: #313E51;
     --button-bg: #819bbff5;
-    --bg: url("../images/endless-constellation.svg");
+    --bg: url("../images/nightwallpaper.png");
     --sun-src: url("../images/icon-sun-light.svg");
     --moon-src: url("../images/icon-moon-light.svg");
 }
