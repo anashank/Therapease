@@ -3,8 +3,8 @@
     --css-bg: #E0FDEF;
     --js-bg: #EBF0FF;
     --accessibility-bg: #F6E7FF;
-    --text-color: #d09e9e;
-    --text-color-p: #d28888;
+    --text-color: #915f5f;
+    --text-color-p: #915f5f;
     --lightblue: #61a4e8;
     --bg-col: rgb(169, 169, 169);
     --button-bg: white;
@@ -42,6 +42,8 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
+    opacity: 0.8; /* Set desired opacity */
+    z-index: -1; /* Place behind all other content */
 }
 
 *,
@@ -250,6 +252,16 @@ button {
 
 button:hover {
     cursor: pointer;
+}
+
+.quiz-type.btn-success {
+    background-color: #a74628; /* Change background color */
+    border-color: #28a745; /* Change border color */
+}
+
+.quiz-type.btn-success:hover {
+    background-color: #218838; /* Change background on hover */
+    border-color: #1e7e34; /* Change border on hover */
 }
 
 .option {
