@@ -1,5 +1,6 @@
 import os
 import django
+from score.models import Match
 
 # Set up Django environment
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DjangoApp.settings')
@@ -71,6 +72,10 @@ def compare_responses(request):
                 if v > max_score:
                     max_score = v
                     therapist_profile_match = k[1]
+        Match.objects.create(
+            user=request.user,
+            matched_with=therapist_profile_match.user,
+            match_score=max_score)  
         return therapist_profile_match
         #print("Best match is:",therapist_profile_match.user.username)
     else:
@@ -81,6 +86,10 @@ def compare_responses(request):
                 if v > max_score:
                     max_score = v
                     user_profile_match = k[0]
+        Match.objects.create(
+            user=request.user,
+            matched_with=user_profile_match.user,
+            match_score=max_score) 
         return user_profile_match
         #print("Best match is:",user_profile_match.user.username)
     

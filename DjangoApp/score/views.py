@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile,QuestionResponse,UserType
+from .models import UserProfile,QuestionResponse,UserType,Match
 import json
 from .forms import UserRegistrationForm
 import subprocess
@@ -39,9 +39,48 @@ def run_python_code(request):
         'output': best_match_profile.user.username
     })
 
+def get_recent_match(request):
+    try:
+        # Fetch the most recent match from the database
+        recent_match = Match.objects.latest('matched_on')  # Fetch the latest match based on `matched_on`
+
+        # Prepare the data to be returned
+        data = {
+            'user': recent_match.user.username,  # Access the username from the user who initiated the match
+            'matched_with': recent_match.matched_with.username,  # Access the username of the matched user
+            'date': recent_match.matched_on.strftime('%B %d, %Y'),  # Format date as needed
+            'score': recent_match.match_score,
+        }
+        
+        return JsonResponse({'recentMatch': data})
+    except Match.DoesNotExist:
+        # Return empty response if no recent match is found
+        return JsonResponse({'recentMatch': None})
+    except Exception as e:
+        # Handle any other errors
+        return JsonResponse({'error': str(e)}, status=500)
+
 @login_required
 def quiz(request):
-    response = render(request, 'frontend.html')
+    # Calling compare_responses and passing the request to get the best match
+    best_match_profile = compare_responses(request)
+    
+    # Fetch the user's match history
+    user_matches = Match.objects.filter(user=request.user)
+    
+    # If no best match found
+    if not best_match_profile:
+        context = {
+            'matches': user_matches,
+            'match_message': 'No match found or not enough data to compare.'
+        }
+    else:
+        context = {
+            'matches': user_matches,
+            'match_message': f'You matched with {best_match_profile.user.username}.'
+        }
+
+    response = render(request, 'frontend.html',context)
     response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response['Pragma'] = 'no-cache'
     return response

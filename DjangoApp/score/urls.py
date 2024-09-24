@@ -9,5 +9,6 @@ urlpatterns = [
 	path('register/', views.register, name='register'),
     path('login/', LoginView.as_view(template_name='login.html'),name='login'),
 	path('logout/', LogoutView.as_view(template_name='logout.html'), name='logout'),
-	 path('run-python/',  views.run_python_code, name='run_python_code'),
+	path('run-python/',  views.run_python_code, name='run_python_code'),
+    path('get-recent-match/', views.get_recent_match, name='get_recent_match'),
 ]

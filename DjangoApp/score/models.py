@@ -25,6 +25,18 @@ class UserType(models.Model):
 
     def __str__(self):
         return f"{self.user_profile.user.username}:User Type: {self.user_type}"
+    
+class Match(models.Model):
+    user = models.ForeignKey(User, related_name="matches", on_delete=models.CASCADE)
+    matched_with = models.ForeignKey(User, related_name="matched_by", on_delete=models.CASCADE)
+    match_score = models.FloatField(default=0.0)  # If you have a matching score
+    matched_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-matched_on']  # Order by most recent match first
+
+    def __str__(self):
+        return f"{self.user.username} matched with {self.matched_with.username} ({self.match_score})"
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):

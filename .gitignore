@@ -3,3 +3,5 @@
 DjangoApp/.DS_Store
 DjangoApp/db.sqlite3
 DjangoApp/static/.DS_Store
+*.pyc
+*.sqlite3
