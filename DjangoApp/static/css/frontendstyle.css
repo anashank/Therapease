@@ -3,14 +3,14 @@
     --css-bg: #E0FDEF;
     --js-bg: #EBF0FF;
     --accessibility-bg: #F6E7FF;
-    --text-color: #050108;
-    --text-color-p: #030103;
+    --text-color: #d09e9e;
+    --text-color-p: #d28888;
     --lightblue: #61a4e8;
     --bg-col: rgb(169, 169, 169);
     --button-bg: white;
     --option-bg: #F4F6FA;
     --option-color: #626C7F;
-    --bg: url("../images/day.png");
+    --bg: url("../images/daywallpaperv4.png");
     --sun-src: url("../images/icon-sun-dark.svg");
     --moon-src: url("../images/icon-moon-dark.svg");
 }
