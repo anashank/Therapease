@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat with {{ matched_user.username }}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .chat-container {
+      width: 350px;
+      max-width: 100%;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      height: 500px;
+    }
+
+    .chat-header {
+      background-color: #007bff;
+      padding: 15px;
+      color: white;
+      font-size: 18px;
+      text-align: center;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .chat-body {
+  display: flex;
+  flex-direction: column; /* Ensure messages stack vertically */
+  padding: 10px;
+  flex-grow: 1;
+  overflow-y: auto;
+  border-bottom: 1px solid #ddd;
+  }
+
+  .chat-message {
+  padding: 8px 15px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  max-width: 80%; /* Allow the bubble to take up most of the width */
+  word-wrap: break-word; /* Ensure long words break properly */
+  display: block; /* Ensure messages stack as block elements */
+  }
+
+  .user-message {
+  background-color: #007bff;
+  color: white;
+  align-self: flex-end; /* Align user messages to the right */
+  }
+
+  .bot-message {
+  background-color: #eaeaea;
+  color: #333;
+  align-self: flex-start; /* Align bot messages to the left */
+  }
+
+
+    .chat-footer {
+      padding: 10px;
+      display: flex;
+    }
+
+    .chat-input {
+      flex-grow: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      outline: none;
+    }
+
+    .send-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      padding: 10px 20px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    .send-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="chat-container">
+    <div class="chat-header">
+      <button onclick="window.history.back()" style="background: none; border: none; color: white;">&#8592;</button>
+      Messenger with {{ matched_user.username }}
+    </div>
+    <div class="chat-body" id="chatBody">
+      {% for message in messages %}
+        <div class="chat-message {% if message.sender == request.user %}user-message{% else %}bot-message{% endif %}">
+          {{ message.content }}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="chat-footer">
+      <input type="text" id="chatInput" class="chat-input" placeholder="Type a message...">
+      <button class="send-btn" id="sendBtn">Send</button>
+    </div>
+    <button onclick="window.history.back()" style="background: none; border: none; color: white;">&#8592;</button>
+
+  </div>
+
+  <script>
+ document.getElementById('sendBtn').addEventListener('click', function() {
+  const messageInput = document.getElementById('chatInput');
+  const messageContent = messageInput.value;
+  const chatBody = document.getElementById('chatBody');
+  
+  if (messageContent.trim() === '') return;
+
+  // Optimistic UI Update: Display message instantly
+  const newMessage = document.createElement('div');
+  newMessage.classList.add('chat-message', 'user-message');
+  newMessage.style.maxWidth = '80%';
+  newMessage.textContent = messageContent; // Set the message text immediately
+  chatBody.appendChild(newMessage);
+  messageInput.value = ''; // Clear input field
+  chatBody.scrollTop = chatBody.scrollHeight; // Scroll to bottom to show the latest message
+
+  // Now send the message to the server
+  fetch('{% url "send_message" %}', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': '{{ csrf_token }}'
+    },
+    body: JSON.stringify({ message: messageContent, matched_user_id: "{{ matched_user.id }}" })
+  })
+  .then(response => {
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.json();
+  })
+  .then(data => {
+    // Optionally, update message if the server modifies it (e.g., adds timestamps, etc.)
+    // newMessage.textContent = data.content;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // Optionally handle the error: show retry option, alert user, etc.
+  });
+});
+
+
+  </script>
+</body>
+</html>

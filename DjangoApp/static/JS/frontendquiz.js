@@ -235,7 +235,7 @@ function displayRecentMatch(recentMatch) {
     recentMatchContainer.innerHTML = '';
     const recentMatchElement = document.createElement('div');
     recentMatchElement.classList.add('recent-match-item');
-    recentMatchElement.textContent = `Most recent match: ${recentMatch.matched_with} on ${recentMatch.date}`;
+    recentMatchElement.textContent = `You most recently matched with ${recentMatch.matched_with} on ${recentMatch.date}`;
     recentMatchContainer.appendChild(recentMatchElement);
 
     recentMatchContainer.style.display = 'block';
@@ -258,12 +258,3 @@ document.querySelector(".restart2").addEventListener("click", function () {
     qCount = -1;
     score = 0;
 });
-
-// document.querySelector(".btn-primary").addEventListener("click", function () {
-//     // Hide quiz complete screen
-//     document.querySelector(".quiz-complete").classList.remove("visible");
-//     // Show start menu
-//     document.querySelector(".start-menu").classList.add("visible");
-//     // Ensure recent match container is hidden
-//     document.querySelector(".recent-match-container").style.display = 'none';
-// });

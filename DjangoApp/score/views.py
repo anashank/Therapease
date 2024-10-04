@@ -1,31 +1,55 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile,QuestionResponse,UserType,Match
+from django.contrib.auth.models import User
+from .models import UserProfile, QuestionResponse, UserType, Match, Message
 import json
 from .forms import UserRegistrationForm
-import subprocess
-import io
 from .utils import compare_responses
-import sys
 
 
-# def run_python_code(request):
-#     # Run your Python script
-#     # result = subprocess.run(['python3', 'score/utils.py'], capture_output=True, text=True)
-#     # output = result.stdout
-#     old_stdout = sys.stdout
-#     new_stdout = io.StringIO()
-#     sys.stdout = new_stdout
-#     result = compare_responses(request)
+@login_required
+def messenger(request):
+    try:
+        # Fetch the most recent match for the current user
+        recent_match = Match.objects.filter(user=request.user).latest('matched_on')
+        matched_user = recent_match.matched_with
 
-#     sys.stdout = old_stdout
+        # Fetch messages between the current user and the matched user
+        messages = Message.objects.filter(
+            sender__in=[request.user, matched_user],
+            receiver__in=[request.user, matched_user]
+        ).order_by('created_at')
 
-#     captured_output = new_stdout.getvalue()
+        context = {
+            'matched_user': matched_user,
+            'messages': messages,
+        }
+        return render(request, 'messenger.html', context)
+    except Match.DoesNotExist:
+        # Handle the case where no matches exist for the user
+        return render(request, 'messenger.html', {'error': 'No match found'})
 
 
-#     return JsonResponse({'output':captured_output})
+@login_required
+def send_message(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        message_content = data.get('message')
+        matched_user_id = data.get('matched_user_id')
+
+        # Get the matched user object
+        matched_user = User.objects.get(id=matched_user_id)
+
+        # Create a new message instance
+        message = Message(sender=request.user, receiver=matched_user, content=message_content)
+        message.save()
+
+        return JsonResponse({'message': 'Message sent successfully!'}, status=201)
+
+    return JsonResponse({'error': 'Invalid request'}, status=400)
+
 
 def run_python_code(request):
     # Call compare_responses and get the output
@@ -39,10 +63,12 @@ def run_python_code(request):
         'output': best_match_profile.user.username
     })
 
+
+@login_required
 def get_recent_match(request):
     try:
         # Fetch the most recent match from the database
-        recent_match = Match.objects.latest('matched_on')  # Fetch the latest match based on `matched_on`
+        recent_match = Match.objects.filter(user=request.user).latest('matched_on')
 
         # Prepare the data to be returned
         data = {
@@ -51,7 +77,7 @@ def get_recent_match(request):
             'date': recent_match.matched_on.strftime('%B %d, %Y'),  # Format date as needed
             'score': recent_match.match_score,
         }
-        
+
         return JsonResponse({'recentMatch': data})
     except Match.DoesNotExist:
         # Return empty response if no recent match is found
@@ -60,14 +86,15 @@ def get_recent_match(request):
         # Handle any other errors
         return JsonResponse({'error': str(e)}, status=500)
 
+
 @login_required
 def quiz(request):
     # Calling compare_responses and passing the request to get the best match
     best_match_profile = compare_responses(request)
-    
+
     # Fetch the user's match history
     user_matches = Match.objects.filter(user=request.user)
-    
+
     # If no best match found
     if not best_match_profile:
         context = {
@@ -80,10 +107,11 @@ def quiz(request):
             'match_message': f'You matched with {best_match_profile.user.username}.'
         }
 
-    response = render(request, 'frontend.html',context)
+    response = render(request, 'frontend.html', context)
     response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
     response['Pragma'] = 'no-cache'
     return response
+
 
 @login_required
 def save_type(request):
@@ -108,6 +136,7 @@ def save_type(request):
         return JsonResponse({'message': 'User type saved successfully!'}, status=201)
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
+
 
 @login_required
 def save_question_response(request):
@@ -135,44 +164,6 @@ def save_question_response(request):
 
     return JsonResponse({'error': 'Invalid request'}, status=400)
 
-
-
-# @login_required
-# def save_type(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         usertype = data.get('usertype') #Therapist or user
-
-#         usertype_short = 'User' if usertype == "Looking for a Therapist?" else 'Therapist'
-
-#         user_profile = request.user.userprofile 
-
-#         user_type_db = UserType(user_profile=user_profile,user_type=usertype_short)
-#         user_type_db.save()
-
-#         return JsonResponse({'message': 'Response saved successfully!'}, status=201)
-
-#     return JsonResponse({'error': 'Invalid request'}, status=400)
-
-# @login_required
-# def save_question_response(request):
-#     if request.method == 'POST':
-#         data = json.loads(request.body)
-#         question_text = data.get('question')
-#         response_value = data.get('response')  # Expecting 'yes' or 'no'
-
-#         # Convert the response to a boolean
-#         response_boolean = True if response_value == 'A' else False
-
-#         user_profile = request.user.userprofile 
-
-#         # Save the question and response to the database
-#         question_response = QuestionResponse(user_profile=user_profile,question=question_text, response=response_boolean)
-#         question_response.save()
-
-#         return JsonResponse({'message': 'Response saved successfully!'}, status=201)
-
-#     return JsonResponse({'error': 'Invalid request'}, status=400)
 
 def register(request):
     if request.method == 'POST':
