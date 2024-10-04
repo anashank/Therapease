@@ -255,13 +255,43 @@ button:hover {
 }
 
 .quiz-type.btn-success {
-    background-color: #a74628; /* Change background color */
-    border-color: #28a745; /* Change border color */
+    background-color: #e07b5d; /* Change background color */
+    border-color: #ef7e5e; /* Change border color */
 }
 
 .quiz-type.btn-success:hover {
-    background-color: #218838; /* Change background on hover */
-    border-color: #1e7e34; /* Change border on hover */
+    background-color: #f47f7f; /* Change background on hover */
+    border-color: #f47f7f; /* Change border on hover */
+}
+
+.quiz-type.btn-btn-primary {
+    background-color: #e07b5d; /* Change background color */
+    border-color: #ef7e5e; /* Change border color */
+}
+
+.quiz-type.btn-btn-primary:hover{
+    background-color: #f47f7f; /* Change background on hover */
+    border-color: #f47f7f; /* Change border on hover */
+}
+
+.quiz-type.btn-btn-info {
+    background-color: #e07b5d; /* Change background color */
+    border-color: #ef7e5e; /* Change border color */
+}
+
+.quiz-type.btn-btn-info:hover{
+    background-color: #f47f7f; /* Change background on hover */
+    border-color: #f47f7f; /* Change border on hover */
+}
+
+.quiz-type.btn-btn-warning {
+    background-color: #e07b5d; /* Change background color */
+    border-color: #ef7e5e; /* Change border color */
+}
+
+.quiz-type.btn-btn-warning:hover {
+    background-color: #f47f7f; /* Change background on hover */
+    border-color: #f47f7f; /* Change border on hover */
 }
 
 .option {
