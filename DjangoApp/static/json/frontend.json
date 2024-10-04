@@ -5,7 +5,7 @@
             "icon": "/static/images/icon-eyes.png",
             "questions": [
                 {
-                    "question": "Hey there, I'm Buddy the Bear! Let's find your ideal therapist. Do you prefer a therapist who incorporates creative activities like art or music in their sessions? Yes or No?",
+                    "question": "Let's find your ideal therapist. Do you prefer a therapist who incorporates creative activities like art or music in their sessions? Yes or No?",
                     "options": [
                         "Yes",
                         "No"
@@ -91,7 +91,7 @@
             "icon": "/static/images/icon-owl.svg",
             "questions": [
                 {
-                    "question": "Hello! Ollie the Owl here. Do you have a knack for using creative techniques like art or music in your therapy sessions? Yes or No?",
+                    "question": "Do you have a knack for using creative techniques like art or music in your therapy sessions? Yes or No?",
                     "options": [
                         "Yes",
                         "No"
