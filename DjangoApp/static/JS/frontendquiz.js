@@ -41,6 +41,7 @@ function setSubjectBars(type) {
             bar.firstElementChild.firstElementChild.style.height = '90px';
         } else if (type === "Want to be a Therapist?") {
             bar.firstElementChild.firstElementChild.src = "/static/images/icon-owl.svg";
+            bar.firstElementChild.firstElementChild.style.height = '90px';
         }
         bar.style.visibility = "visible";
     });

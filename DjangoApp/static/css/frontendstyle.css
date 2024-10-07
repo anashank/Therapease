@@ -332,7 +332,7 @@ button:hover {
     background-color: var(--html-bg);
 }
 
-.button-icon-container > img[src="../images/icon-owl.svg"] {
+.button-icon-container > img[src="../images/icon-eyes.png"] {
     background-color: var(--css-bg);
 }
 
