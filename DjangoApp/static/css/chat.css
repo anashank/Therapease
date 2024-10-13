@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Red Hat Display", sans-serif;
+    font-style: normal;
+    background-color: #f7f7f7;
+    overflow: hidden;
+}
+
+.chatBot {
+    overflow: hidden;
+    height: 100%;
+}
+
+#chatHeader {
+    background-color: rgb(32, 91, 125);
+    text-align: center;
+    height: 8.1%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+header h2 {
+    color: #ffffff;
+}
+
+.chatbox {
+    padding: 15px;
+    list-style: none;
+    height: 65%;
+    width: 60%;
+    overflow-y: auto;
+}
+
+.chatbox li {
+    margin-bottom: 10px;
+}
+
+.chat p {
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+
+.chat-outgoing p {
+    background-color: #a187d5;
+    color: black; /* Change text color to black */
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.chat-incoming p {
+    background-color: rgb(25, 148, 52);
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.chat-input {
+    padding: 10px;
+    border-top: 1px solid #cccccc39;
+}
+
+.chat-input textarea {
+    width: 522px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    resize: none;
+    outline: none;
+    overflow-y: scroll;
+    background-color: #dcdcdc3d;
+    font-size: 16px;
+    color: #552511;
+    margin-top: -10px;
+    margin-left: -15px;
+    height: 71px;
+}
+
+#cross {
+    float: right;
+    position: relative;
+    top: -38px;
+    left: -15px;
+    cursor: pointer;
+    color: white;
+    font-size: 28px;
+}
+
+#cross:hover {
+    color: red;
+    transition: all .5s;
+}
+
+.chatbox .chat p.error {
+    color: #ffffff;
+    background-color: #ff3737e8;
+}
+
+#sendBTN {
+    width: 100%;
+    padding: 8px;
+    border: 0;
+    outline: none;
+    font-size: 20px;
+    border-radius: 7px;
+    background-color: rgb(115, 116, 93);
+    cursor: pointer;
+    color: white;
+    margin-top: 12px;
+}
+
+.lastMessage {
+    margin-top: 50px;
+    font-size: 35px;
+    color: #115522;
+    margin-left: 550px;
+}

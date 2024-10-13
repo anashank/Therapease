@@ -1,34 +1,97 @@
-document.getElementById('send-button').addEventListener('click', function() {
-    const userInput = document.getElementById('user-input').value;
-    if (userInput.trim() !== "") {
-        // Display user message
-        addMessage(userInput, 'user-message');
-        document.getElementById('user-input').value = '';
+const chatInput = document.querySelector('.chat-input textarea');
+const sendChatBtn = document.querySelector('.chat-input button');
+const chatbox = document.querySelector(".chatbox");
 
-        // Simulate bot response
-        setTimeout(() => {
-            const botResponse = getBotResponse(userInput);
-            addMessage(botResponse, 'bot-message');
-        }, 1000);
+let userMessage;
+
+const createChatLi = (message, className) => {
+    const chatLi = document.createElement("li");
+    chatLi.classList.add("chat", className);
+    chatLi.innerHTML = `<p>${message}</p>`; // Messages wrapped in <p>
+    return chatLi;
+};
+
+// Function to get the CSRF token from the cookie
+const getCookie = (name) => {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
     }
-});
+    return cookieValue;
+};
 
-function addMessage(text, className) {
-    const chatBox = document.getElementById('chat-box');
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message', className);
-    messageDiv.innerText = text;
-    chatBox.appendChild(messageDiv);
-    chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the bottom
-}
+const csrftoken = getCookie('csrftoken');
 
-function getBotResponse(userInput) {
-    // Simple responses
-    const responses = {
-        'hi': 'Hello! How can I assist you today?',
-        'how are you?': 'I am just a bot, but thanks for asking!',
-        'bye': 'Goodbye! Have a great day!',
+const generateResponse = (incomingChatLi) => {
+    const messageElement = incomingChatLi.querySelector("p");
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "X-CSRFToken": csrftoken
+        },
+        body: new URLSearchParams({
+            'message': userMessage
+        })
     };
 
-    return responses[userInput.toLowerCase()] || "I'm sorry, I don't understand.";
+    fetch('/chat/', requestOptions)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Network response was not ok");
+            }
+            return res.json();
+        })
+        .then(data => {
+            if (data.message) {
+                messageElement.innerHTML = data.message; // Update message
+            } else {
+                messageElement.classList.add("error");
+                messageElement.textContent = "Oops! Something went wrong. Please try again!";
+            }
+        })
+        .catch((error) => {
+            messageElement.classList.add("error");
+            messageElement.textContent = "Oops! Something went wrong. Please try again!";
+        })
+        .finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
+};
+
+const handleChat = () => {
+    userMessage = chatInput.value.trim();
+
+    // Clear the input box once the send button is clicked
+    chatInput.value = "";
+    if (!userMessage) {
+        return;
+    }
+    chatbox.appendChild(createChatLi(userMessage, "chat-outgoing"));
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+
+    setTimeout(() => {
+        const incomingChatLi = createChatLi("Thinking...", "chat-incoming");
+        chatbox.appendChild(incomingChatLi);
+        chatbox.scrollTo(0, chatbox.scrollHeight);
+        generateResponse(incomingChatLi);
+    }, 600);
+};
+
+sendChatBtn.addEventListener("click", handleChat);
+
+function cancel() {
+    let chatbotcomplete = document.querySelector(".chatBot");
+    if (chatbotcomplete.style.display !== 'none') {
+        chatbotcomplete.style.display = "none";
+        let lastMsg = document.createElement("p");
+        lastMsg.textContent = 'Thanks for using our Chatbot!';
+        lastMsg.classList.add('lastMessage');
+        document.body.appendChild(lastMsg);
+    }
 }

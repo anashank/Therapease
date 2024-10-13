@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from .models import UserProfile, QuestionResponse, UserType, Match, Message
 import json
 from .forms import UserRegistrationForm
-from .utils import compare_responses
+from .utils import compare_responses,get_response
 
 
 @login_required
@@ -63,6 +63,31 @@ def run_python_code(request):
         'output': best_match_profile.user.username
     })
 
+def chat(request):
+    filename = request.session.get('module_file_name')
+    if not filename:
+        return JsonResponse({"error": "No filename provided in session"}, status=400)
+    if request.method == "POST":
+        user_message = request.POST.get('message')
+        if not user_message:
+            return JsonResponse({"error": "No message provided"}, status=400)
+
+        try:
+            response = get_response(user_message,filename)
+            return JsonResponse({"message": response})
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+
+    return JsonResponse({"error": "Invalid request method"}, status=405)
+
+def chatbot(request,filename):
+    request.session['module_file_name'] = filename +'.pdf'
+
+    context = {
+        'module_file_name': filename,
+    }
+
+    return render(request, "chat.html", context)
 
 @login_required
 def get_recent_match(request):
